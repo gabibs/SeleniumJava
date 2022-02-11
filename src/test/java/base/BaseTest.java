@@ -1,12 +1,13 @@
 package base;
 
-import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import pages.HomePage;
-import pages.SecureAreaPage;
+
+import java.time.Duration;
 
 public class BaseTest {
     //Declare "driver" object
@@ -21,19 +22,28 @@ public class BaseTest {
         //Instantiate chromedriver
         driver = new ChromeDriver();
 
+        //this will avoid each method tries to click on links at the same time
+        goHome();
+
+        //navigate to HomePage
+        homePage = new HomePage(driver);
+
+        //Implicitly wait for slow load web applications
+        //driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+    }
+
+    @BeforeMethod
+    public void goHome(){
         //Get browser url
         driver.get("https://the-internet.herokuapp.com/");
 
         //In order to set size as mobile device
         //navigate to browser and verify desired device size using devTool
         //then use this values as parameters
-        //driver.manage().window().setSize(new Dimension(360, 740));
+        //driver.manage().window().setSize(new Dimension(int, int));
 
         //maximize window
         driver.manage().window().maximize();
-
-        //navigate to HomePage
-        homePage = new HomePage(driver);
     }
 
     //Close the browser and end session
