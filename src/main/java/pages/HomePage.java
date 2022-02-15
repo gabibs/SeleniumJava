@@ -7,8 +7,7 @@ public class HomePage {
     //declare driver
     private WebDriver driver;
 
-    //set a constructor for driver
-    public void HomePage(WebDriver driver) {
+    public HomePage(WebDriver driver) {
         this.driver = driver;
     }
 
