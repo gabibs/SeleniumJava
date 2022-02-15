@@ -1,6 +1,7 @@
 package pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
@@ -33,12 +34,23 @@ public class DropdownPage {
         return selectedElements.stream().map(e->e.getText()).collect(Collectors.toList());
     }
 
+    public void setMultipleAttribute(){
+        String script = "arguments[0].setAttribute('multiple', '')";
+        var jsExecutor = (JavascriptExecutor)driver;
+        List<WebElement> availableOptions = findDropDownElement().getOptions();
+        jsExecutor.executeScript(script, availableOptions.get(0));
+        jsExecutor.executeScript(script, availableOptions.get(1));
+
+    }
+
     //This takes a WebElement, so we can do the driver.findElement
     //because we know that that'll give us a WebElement, and we can pass in this dropdown locator.
     //That will give us an element that we pass to Select
     public void selectFromDropDown(String option){
         findDropDownElement().selectByVisibleText(option);
     }
+
+
 
 
 }

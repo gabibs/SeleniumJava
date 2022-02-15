@@ -29,7 +29,9 @@ public class BaseTest {
         homePage = new HomePage(driver);
 
         //Implicitly wait for slow load web applications
-        //driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(5));
+        Duration scriptTimeout = driver.manage().timeouts().getScriptTimeout();
+        driver.manage().timeouts().scriptTimeout(scriptTimeout);
     }
 
     @BeforeMethod

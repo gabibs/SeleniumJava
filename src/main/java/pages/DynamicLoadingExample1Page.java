@@ -1,8 +1,10 @@
 package pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
 
 import java.time.Duration;
 
@@ -16,15 +18,16 @@ public class DynamicLoadingExample1Page {
         this.driver = driver;
     }
 
-    private void waitForElementNotDisplayed(int seconds){
-        new WebDriverWait(driver, Duration.ofSeconds(seconds))
-                .until(driver -> driver.findElement(loadingIndicator));
-    }
-
-    public void clickStart(int seconds) {
+    public void clickStart() {
         driver.findElement(startButton).click();
-        waitForElementNotDisplayed(seconds);
+        FluentWait wait = new FluentWait(driver)
+                .withTimeout(Duration.ofSeconds(20))
+                .pollingEvery(Duration.ofSeconds(5))
+                .ignoring(NoSuchElementException.class);
+         wait.until(ExpectedConditions.invisibilityOf(driver.findElement(loadingIndicator)));
     }
-    
 
+    public String getTextResult(){
+        return driver.findElement(loadedText).getText();
+    }
 }

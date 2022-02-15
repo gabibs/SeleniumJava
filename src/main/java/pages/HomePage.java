@@ -7,10 +7,6 @@ public class HomePage {
     //declare driver
     private WebDriver driver;
 
-    public HomePage(WebDriver driver) {
-        this.driver = driver;
-    }
-
     //set a constructor for driver
     public void HomePage(WebDriver driver) {
         this.driver = driver;
@@ -77,6 +73,16 @@ public class HomePage {
     public DynamicLoadingPage clickDynamicLoad(){
         clickLink("Dynamic Loading");
         return new DynamicLoadingPage(driver);
+    }
+
+    public LargeAndDeepDomPage clickLargeDOM(){
+        clickLink("Large & Deep DOM");
+        return new LargeAndDeepDomPage(driver);
+    }
+
+    public InfiniteScrollPage clickInfiniteScroll(){
+        clickLink("Infinite Scroll");
+        return new InfiniteScrollPage(driver);
     }
 
     //generates a generic element found by link text passed as parameter "linkText"
