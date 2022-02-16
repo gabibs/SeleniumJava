@@ -1,8 +1,10 @@
 package pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 
@@ -32,6 +34,15 @@ public class DynamicLoadingPage {
                 .ignoring(NoSuchElementException.class);
         wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(link_Example2)));
         driver.findElement(link_Example2).click();
+        return new DynamicLoadingExample2Page(driver);
+    }
+
+    public DynamicLoadingExample2Page rightClickExample2(){
+        Actions right_click = new Actions(driver);
+        right_click.contextClick(driver.findElement(link_Example2))
+                .sendKeys(Keys.ARROW_RIGHT)
+                .click()
+                .perform();
         return new DynamicLoadingExample2Page(driver);
     }
 }

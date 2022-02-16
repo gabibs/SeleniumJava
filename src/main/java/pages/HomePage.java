@@ -84,6 +84,11 @@ public class HomePage {
         return new InfiniteScrollPage(driver);
     }
 
+    public MultipleWindowsPage clickMultipleWindows(){
+        clickLink("Multiple Windows");
+        return new MultipleWindowsPage(driver);
+    }
+
     //generates a generic element found by link text passed as parameter "linkText"
     public void clickLink(String linkText){
         driver.findElement(By.linkText(linkText)).click();
