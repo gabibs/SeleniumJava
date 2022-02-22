@@ -47,6 +47,13 @@ public class BaseTest {
         driver.manage().timeouts().scriptTimeout(scriptTimeout);
     }
 
+    @BeforeTest
+    public static void docker_setup() throws IOException, InterruptedException {
+        ProcessBuilder processBuilder = new ProcessBuilder("/home/bettaglio_g/Documentos/SeleniumLearningProject/start_dockergrid.sh");
+        Process process = processBuilder.start();
+        Thread.sleep(8000);
+    }
+
     @BeforeMethod
     public void goHome(){
         //Get browser url
@@ -60,6 +67,13 @@ public class BaseTest {
         //maximize window
         driver.manage().window().maximize();
 
+    }
+
+    @AfterTest
+    public void docker_stop() throws IOException, InterruptedException {
+        ProcessBuilder processBuilder = new ProcessBuilder("/home/bettaglio_g/Documentos/SeleniumLearningProject/stop_dockergrid.sh");
+        Process process = processBuilder.start();
+        Thread.sleep(8000);
     }
 
     @AfterMethod
